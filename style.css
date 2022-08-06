@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1d1c1c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  min-height: 50vh;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.pills {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 15px;
+}
+
+.pill {
+  background-image: linear-gradient(#243cad, #12206a);
+  box-shadow: inset 0 0 2px 0px black, 0 0 0 1px #4f4860, 0 0 0 2px #d4d0c5,
+    0 0 0 3px #4f4860, inset 0 0 2px 4px black;
+  border-radius: 50px;
+  padding: 15px;
+  color: #fff;
+}
+
+.pill.a::before {
+  content: "A: ";
+  color: #c48f48;
+}
+
+.pill.b::before {
+  content: "B: ";
+  color: #c48f48;
+}
+
+.pill.c::before {
+  content: "C: ";
+  color: #c48f48;
+}
+
+.pill.d::before {
+  content: "D: ";
+  color: #c48f48;
+}
+
+.pill.selected::before {
+  color: black;
+}
+
+.selected {
+  background: #f28f04;
+  color: black;
+}
+
+.pill.correct::before {
+  color: black;
+}
+
+.correct {
+  background: #51d72b;
+  color: black;
+}
