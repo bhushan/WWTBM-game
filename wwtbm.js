@@ -61,6 +61,12 @@ function getRandomArbitrary(min, max) {
 const getRandomQuestion = (level = 1) => {
   // TODO: use levels to fetch correct level question
   const questionsCount = questions.length;
+  if (questionsCount === 0) {
+    alert(
+      "All questions have been asked already, fill up question bank with more questions"
+    );
+    return {};
+  }
 
   const randomIndex = getRandomArbitrary(0, questionsCount);
 
@@ -76,30 +82,39 @@ const attachEventListForSelection = () => {
     optionElement.addEventListener("click", function () {
       if (optionSelected) return;
       optionElement.classList.add("selected");
+      optionSelected = true;
+      if (Object.keys(currentQuestion).length === 0) {
+        return;
+      }
       const { correctAnswer } = currentQuestion;
       const correctOptionElement = document.querySelector(
         `.option .${correctAnswer}`
       );
       correctOptionElement.parentNode.classList.add("correct");
-      optionSelected = true;
     })
   );
 };
 
-const proceedToNextQuestion = () => {
+const attachEventListnerForNextQuestion = () => {
   questionElement.addEventListener("click", function () {
     if (!optionSelected) return;
     resetState();
     currentQuestion = getRandomQuestion(currentLevel);
+    if (Object.keys(currentQuestion).length === 0) {
+      return;
+    }
     displayQuestion(currentQuestion);
   });
 };
 
 const start = () => {
   currentQuestion = getRandomQuestion(currentLevel);
+  if (Object.keys(currentQuestion).length === 0) {
+    return;
+  }
   displayQuestion(currentQuestion);
   attachEventListForSelection();
-  proceedToNextQuestion();
+  attachEventListnerForNextQuestion();
 };
 
 const displayQuestion = ({ question, options }) => {
@@ -117,6 +132,3 @@ const displayQuestion = ({ question, options }) => {
 };
 
 start();
-
-// show correct answer
-// if correct answer is shown on the page with green color and host clicks on question then reset everything and fetch next question
