@@ -45,8 +45,10 @@ section.game {
   cursor: pointer;
 }
 
-.option:hover::before {
-  color: black !important;
+.option::before {
+  content: "\00B7";
+  color: #fff;
+  font-weight: 900;
 }
 
 .option:hover {
@@ -54,28 +56,32 @@ section.game {
   color: black;
 }
 
-.option.a::before {
+.option:hover .a::before,
+.option:hover .b::before,
+.option:hover .c::before,
+.option:hover .d::before {
+  background: #f28f04;
+  color: black;
+}
+
+.option .a::before {
   content: "A: ";
   color: #c48f48;
 }
 
-.option.b::before {
+.option .b::before {
   content: "B: ";
   color: #c48f48;
 }
 
-.option.c::before {
+.option .c::before {
   content: "C: ";
   color: #c48f48;
 }
 
-.option.d::before {
+.option .d::before {
   content: "D: ";
   color: #c48f48;
-}
-
-.option.selected::before {
-  color: black;
 }
 
 .selected {
@@ -83,7 +89,17 @@ section.game {
   color: black;
 }
 
-.option.correct::before {
+.selected .a::before,
+.selected .b::before,
+.selected .c::before,
+.selected .d::before {
+  color: black;
+}
+
+.correct .a::before,
+.correct .b::before,
+.correct .c::before,
+.correct .d::before {
   color: black;
 }
 
