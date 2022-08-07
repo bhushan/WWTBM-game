@@ -90,6 +90,7 @@ const attachEventListForSelection = () => {
       const correctOptionElement = document.querySelector(
         `.option .${correctAnswer}`
       );
+      correctOptionElement.parentNode.classList.remove("selected");
       correctOptionElement.parentNode.classList.add("correct");
     })
   );
