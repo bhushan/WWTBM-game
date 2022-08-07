@@ -201,7 +201,11 @@ const questions = [
 
 let currentLevel = 1;
 let optionSelected = false;
+let currentQuestionNumber = 1;
 let currentQuestion = {};
+
+let questionStates = Array.from({ length: 15 });
+
 const questionsAskedInEachLevel = 5;
 
 const questionElement = document.querySelector(".question");
@@ -214,6 +218,10 @@ const resetState = () => {
   optionElements.forEach((element) =>
     element.classList.remove("selected", "correct")
   );
+};
+
+const resetGame = () => {
+  location.reload();
 };
 
 function getRandomArbitrary(min, max) {
@@ -255,9 +263,28 @@ function submitAnswer(event) {
   const { correctAnswer } = currentQuestion;
   const correctOptionElement = document.querySelector(
     `.option .${correctAnswer}`
+  ).parentNode;
+
+  correctOptionElement.classList.remove("selected");
+  correctOptionElement.classList.add("correct");
+
+  if (currentQuestionNumber > 15) {
+    return;
+  }
+
+  const leaderboard = document.querySelector(
+    `[data-value='${currentQuestionNumber}']`
   );
-  correctOptionElement.parentNode.classList.remove("selected");
-  correctOptionElement.parentNode.classList.add("correct");
+
+  leaderboard.classList.remove("current");
+
+  if (optionElement === correctOptionElement) {
+    questionStates[currentQuestionNumber - 1] = true;
+    leaderboard.classList.add("correct");
+  } else {
+    questionStates[currentQuestionNumber - 1] = false;
+    leaderboard.classList.add("wrong");
+  }
 }
 
 const proceedToNextQuestion = () => {
@@ -267,6 +294,18 @@ const proceedToNextQuestion = () => {
   if (Object.keys(currentQuestion).length === 0) {
     return;
   }
+
+  currentQuestionNumber++;
+
+  if (currentQuestionNumber > 15) {
+    resetGame();
+    return;
+  }
+
+  const leaderboard = document.querySelector(
+    `[data-value='${currentQuestionNumber}']`
+  );
+  leaderboard.classList.add("current");
   displayQuestion(currentQuestion);
 };
 
@@ -296,6 +335,11 @@ const init = () => {
   }
 
   displayQuestion(currentQuestion);
+
+  const leaderboard = document.querySelector(
+    `[data-value='${currentQuestionNumber}']`
+  );
+  leaderboard.classList.add("current");
 };
 
 init();
